@@ -1,6 +1,12 @@
 <?php
 
-class InvalidEntradaCineHoraException extends InvalidArgumentException
+declare(strict_types=1);
+
+namespace Domain\Exceptions;
+
+use InvalidArgumentException;
+
+final class InvalidEntradaCineHoraException extends InvalidArgumentException
 {
     public static function becauseValueIsEmpty(): self
     {
@@ -9,6 +15,6 @@ class InvalidEntradaCineHoraException extends InvalidArgumentException
 
     public static function becauseFormatIsInvalid(string $hora): self
     {
-        return new self('El formato de la hora es inválido: ' . $hora . '. Use el formato HH:MM.');
+        return new self('Formato inválido: ' . $hora . '. Use HH:MM.');
     }
 }

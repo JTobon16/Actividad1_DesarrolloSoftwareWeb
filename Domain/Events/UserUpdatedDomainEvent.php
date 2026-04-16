@@ -1,9 +1,12 @@
 <?php
 
-require_once __DIR__ . '/DomainEvent.php';
-require_once __DIR__ . '/../Models/UserModel.php';
+declare(strict_types=1);
 
-class UserUpdatedDomainEvent extends DomainEvent
+namespace Domain\Events;
+
+use Domain\Models\UserModel;
+
+final class UserUpdatedDomainEvent extends DomainEvent
 {
     private UserModel $user;
 

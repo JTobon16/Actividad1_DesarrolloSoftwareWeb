@@ -1,12 +1,18 @@
 <?php
+
+namespace Domain\ValueObjects;
+
 final class EntradaCineFecha
 {
+
     private string $value;
 
     public function __construct(string $value)
     {
-        if (!strtotime($value)) {
-            throw new Exception("Fecha inválida");
+        $value = trim($value);
+
+        if ($value === '') {
+            throw new \InvalidArgumentException("Valor inválido");
         }
 
         $this->value = $value;

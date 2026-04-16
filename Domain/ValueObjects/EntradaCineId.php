@@ -1,13 +1,17 @@
 <?php
 
+namespace Domain\ValueObjects;
+
 final class EntradaCineId
 {
     private string $value;
 
     public function __construct(string $value)
     {
-        if (empty($value)) {
-            throw new Exception("Id inválido");
+        $value = trim($value);
+
+        if ($value === '') {
+            throw new \InvalidArgumentException("Id inválido");
         }
 
         $this->value = $value;

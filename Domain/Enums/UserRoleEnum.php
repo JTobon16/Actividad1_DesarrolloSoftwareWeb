@@ -1,16 +1,24 @@
 <?php
 
-require_once __DIR__ . '/../Exceptions/InvalidUserRoleException.php';
+declare(strict_types=1);
 
-class UserRoleEnum
+namespace Domain\Enums;
+
+use Domain\Exceptions\InvalidUserRoleException;
+
+final class UserRoleEnum
 {
-    const ADMIN    = 'ADMIN';
-    const MEMBER   = 'MEMBER';
-    const REVIEWER = 'REVIEWER';
+    public const ADMIN    = 'ADMIN';
+    public const MEMBER   = 'MEMBER';
+    public const REVIEWER = 'REVIEWER';
 
     public static function values(): array
     {
-        return [self::ADMIN, self::MEMBER, self::REVIEWER];
+        return [
+            self::ADMIN,
+            self::MEMBER,
+            self::REVIEWER
+        ];
     }
 
     public static function isValid(string $value): bool

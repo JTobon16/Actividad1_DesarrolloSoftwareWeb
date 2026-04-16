@@ -1,12 +1,17 @@
 <?php
+
+namespace Domain\ValueObjects;
+
 final class EntradaCinePelicula
 {
     private string $value;
 
     public function __construct(string $value)
     {
-        if (empty($value)) {
-            throw new Exception("Película inválida");
+        $value = trim($value);
+
+        if ($value === '') {
+            throw new \InvalidArgumentException("Película inválida");
         }
 
         $this->value = $value;

@@ -2,14 +2,18 @@
 
 declare(strict_types=1);
 
+namespace Domain\ValueObjects;
+
 final class UserId
 {
     private string $value;
 
     public function __construct(string $value)
     {
-        if (empty($value)) {
-            throw new Exception("UserId inválido");
+        $value = trim($value);
+
+        if ($value === '') {
+            throw new \InvalidArgumentException("UserId inválido");
         }
 
         $this->value = $value;

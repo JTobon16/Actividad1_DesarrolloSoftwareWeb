@@ -1,12 +1,18 @@
 <?php
+
+namespace Domain\ValueObjects;
+
 final class EntradaCineCiudad
 {
+
     private string $value;
 
     public function __construct(string $value)
     {
-        if (empty($value)) {
-            throw new Exception("Valor inválido");
+        $value = trim($value);
+
+        if ($value === '') {
+            throw new \InvalidArgumentException("Valor inválido");
         }
 
         $this->value = $value;

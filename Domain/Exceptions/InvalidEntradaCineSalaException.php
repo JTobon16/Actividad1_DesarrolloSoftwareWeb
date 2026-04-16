@@ -1,6 +1,12 @@
 <?php
 
-class InvalidEntradaCineSalaException extends InvalidArgumentException
+declare(strict_types=1);
+
+namespace Domain\Exceptions;
+
+use InvalidArgumentException;
+
+final class InvalidEntradaCineSalaException extends InvalidArgumentException
 {
     public static function becauseValueIsEmpty(): self
     {

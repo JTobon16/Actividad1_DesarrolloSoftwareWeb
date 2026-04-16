@@ -1,9 +1,12 @@
 <?php
 
-require_once __DIR__ . '/DomainEvent.php';
-require_once __DIR__ . '/../Models/EntradaCineModel.php';
+declare(strict_types=1);
 
-class EntradaCineCreatedDomainEvent extends DomainEvent
+namespace Domain\Events;
+
+use Domain\Models\EntradaCineModel;
+
+final class EntradaCineCreatedDomainEvent extends DomainEvent
 {
     private EntradaCineModel $entrada;
 

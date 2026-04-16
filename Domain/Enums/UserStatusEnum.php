@@ -1,17 +1,26 @@
 <?php
 
-require_once __DIR__ . '/../Exceptions/InvalidUserStatusException.php';
+declare(strict_types=1);
 
-class UserStatusEnum
+namespace Domain\Enums;
+
+use Domain\Exceptions\InvalidUserStatusException;
+
+final class UserStatusEnum
 {
-    const ACTIVE   = 'ACTIVE';
-    const INACTIVE = 'INACTIVE';
-    const PENDING  = 'PENDING';
-    const BLOCKED  = 'BLOCKED';
+    public const ACTIVE   = 'ACTIVE';
+    public const INACTIVE = 'INACTIVE';
+    public const PENDING  = 'PENDING';
+    public const BLOCKED  = 'BLOCKED';
 
     public static function values(): array
     {
-        return [self::ACTIVE, self::INACTIVE, self::PENDING, self::BLOCKED];
+        return [
+            self::ACTIVE,
+            self::INACTIVE,
+            self::PENDING,
+            self::BLOCKED
+        ];
     }
 
     public static function isValid(string $value): bool

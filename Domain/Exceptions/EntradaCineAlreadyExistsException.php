@@ -1,6 +1,12 @@
 <?php
 
-class EntradaCineAlreadyExistsException extends DomainException
+declare(strict_types=1);
+
+namespace Domain\Exceptions;
+
+use DomainException;
+
+final class EntradaCineAlreadyExistsException extends DomainException
 {
     public static function becauseEntradaAlreadyExists(string $id): self
     {

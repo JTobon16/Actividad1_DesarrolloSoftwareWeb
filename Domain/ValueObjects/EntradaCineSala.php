@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Domain\ValueObjects;
+
 final class EntradaCineSala
 {
     private string $value;
 
     public function __construct(string $value)
     {
-        if (empty($value)) {
-            throw new Exception("Valor inválido");
+        $value = trim($value);
+
+        if ($value === '') {
+            throw new \InvalidArgumentException("Sala inválida");
         }
 
         $this->value = $value;

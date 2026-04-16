@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../ValueObjects/UserId.php';
-require_once __DIR__ . '/../ValueObjects/UserName.php';
-require_once __DIR__ . '/../ValueObjects/UserEmail.php';
-require_once __DIR__ . '/../ValueObjects/UserPassword.php';
-require_once __DIR__ . '/../Enums/UserRoleEnum.php';
-require_once __DIR__ . '/../Enums/UserStatusEnum.php';
+namespace Domain\Models;
+
+use Domain\ValueObjects\UserId;
+use Domain\ValueObjects\UserName;
+use Domain\ValueObjects\UserEmail;
+use Domain\ValueObjects\UserPassword;
+use Domain\Enums\UserRoleEnum;
+use Domain\Enums\UserStatusEnum;
 
 final class UserModel
 {
@@ -28,6 +30,7 @@ final class UserModel
     ) {
         UserRoleEnum::ensureIsValid($role);
         UserStatusEnum::ensureIsValid($status);
+
         $this->id       = $id;
         $this->name     = $name;
         $this->email    = $email;
@@ -50,22 +53,27 @@ final class UserModel
     {
         return $this->id;
     }
+
     public function name(): UserName
     {
         return $this->name;
     }
+
     public function email(): UserEmail
     {
         return $this->email;
     }
+
     public function password(): UserPassword
     {
         return $this->password;
     }
+
     public function role(): string
     {
         return $this->role;
     }
+
     public function status(): string
     {
         return $this->status;
@@ -73,17 +81,38 @@ final class UserModel
 
     public function activate(): self
     {
-        return new self($this->id, $this->name, $this->email, $this->password, $this->role, UserStatusEnum::ACTIVE);
+        return new self(
+            $this->id,
+            $this->name,
+            $this->email,
+            $this->password,
+            $this->role,
+            UserStatusEnum::ACTIVE
+        );
     }
 
     public function deactivate(): self
     {
-        return new self($this->id, $this->name, $this->email, $this->password, $this->role, UserStatusEnum::INACTIVE);
+        return new self(
+            $this->id,
+            $this->name,
+            $this->email,
+            $this->password,
+            $this->role,
+            UserStatusEnum::INACTIVE
+        );
     }
 
     public function block(): self
     {
-        return new self($this->id, $this->name, $this->email, $this->password, $this->role, UserStatusEnum::BLOCKED);
+        return new self(
+            $this->id,
+            $this->name,
+            $this->email,
+            $this->password,
+            $this->role,
+            UserStatusEnum::BLOCKED
+        );
     }
 
     public function toArray(): array

@@ -1,9 +1,12 @@
 <?php
 
-require_once __DIR__ . '/DomainEvent.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCineId.php';
+declare(strict_types=1);
 
-class EntradaCineDeletedDomainEvent extends DomainEvent
+namespace Domain\Events;
+
+use Domain\ValueObjects\EntradaCineId;
+
+final class EntradaCineDeletedDomainEvent extends DomainEvent
 {
     private EntradaCineId $entradaId;
 

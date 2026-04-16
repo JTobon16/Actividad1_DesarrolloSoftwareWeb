@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Domain\Events;
+
 abstract class DomainEvent
 {
     private string $eventName;
@@ -15,6 +19,7 @@ abstract class DomainEvent
     {
         return $this->eventName;
     }
+
     public function occurredOn(): string
     {
         return $this->occurredOn;

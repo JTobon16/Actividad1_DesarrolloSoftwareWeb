@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-final class InvalidCredentialsException extends RuntimeException
+namespace Domain\Exceptions;
+
+use DomainException;
+
+final class InvalidCredentialsException extends DomainException
 {
     public static function becauseCredentialsAreInvalid(): self
     {

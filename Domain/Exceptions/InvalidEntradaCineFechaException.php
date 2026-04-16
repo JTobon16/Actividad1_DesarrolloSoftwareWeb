@@ -1,6 +1,12 @@
 <?php
 
-class InvalidEntradaCineFechaException extends InvalidArgumentException
+declare(strict_types=1);
+
+namespace Domain\Exceptions;
+
+use InvalidArgumentException;
+
+final class InvalidEntradaCineFechaException extends InvalidArgumentException
 {
     public static function becauseValueIsEmpty(): self
     {
@@ -9,6 +15,6 @@ class InvalidEntradaCineFechaException extends InvalidArgumentException
 
     public static function becauseFormatIsInvalid(string $fecha): self
     {
-        return new self('El formato de la fecha es inválido: ' . $fecha . '. Use el formato YYYY-MM-DD.');
+        return new self('Formato inválido: ' . $fecha . '. Use YYYY-MM-DD.');
     }
 }

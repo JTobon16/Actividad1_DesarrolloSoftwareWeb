@@ -1,6 +1,12 @@
 <?php
 
-class UserAlreadyExistsException extends DomainException
+declare(strict_types=1);
+
+namespace Domain\Exceptions;
+
+use DomainException;
+
+final class UserAlreadyExistsException extends DomainException
 {
     public static function becauseEmailAlreadyExists(string $email): self
     {

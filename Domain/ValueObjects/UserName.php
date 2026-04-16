@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-
+namespace Domain\ValueObjects;
 
 final class UserName
 {
@@ -10,7 +10,9 @@ final class UserName
 
     public function __construct(string $value)
     {
-        if (empty($value)) {
+        $value = trim($value);
+
+        if ($value === '') {
             throw new \InvalidArgumentException("Nombre inválido");
         }
 

@@ -2,19 +2,21 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../ValueObjects/EntradaCineId.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCineFecha.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCineHora.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCineValor.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCinePelicula.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCinePuesto.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCineSala.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCineCine.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCinePais.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCineDepartamento.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCineCiudad.php';
-require_once __DIR__ . '/../ValueObjects/EntradaCineCentroComercial.php';
-require_once __DIR__ . '/../Enums/GeneroEnum.php';
+namespace Domain\Models;
+
+use Domain\ValueObjects\EntradaCineId;
+use Domain\ValueObjects\EntradaCineFecha;
+use Domain\ValueObjects\EntradaCineHora;
+use Domain\ValueObjects\EntradaCineValor;
+use Domain\ValueObjects\EntradaCinePelicula;
+use Domain\ValueObjects\EntradaCinePuesto;
+use Domain\ValueObjects\EntradaCineSala;
+use Domain\ValueObjects\EntradaCineCine;
+use Domain\ValueObjects\EntradaCinePais;
+use Domain\ValueObjects\EntradaCineDepartamento;
+use Domain\ValueObjects\EntradaCineCiudad;
+use Domain\ValueObjects\EntradaCineCentroComercial;
+use Domain\Enums\GeneroEnum;
 
 final class EntradaCineModel
 {
@@ -52,6 +54,7 @@ final class EntradaCineModel
         EntradaCineCentroComercial $centroComercial
     ) {
         GeneroEnum::ensureIsValid($genero);
+
         $this->id              = $id;
         $this->fechaCompra     = $fechaCompra;
         $this->fechaEntrada    = $fechaEntrada;

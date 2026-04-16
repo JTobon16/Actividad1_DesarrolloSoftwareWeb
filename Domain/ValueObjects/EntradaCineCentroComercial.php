@@ -1,12 +1,15 @@
 <?php
-final class EntradaCentroComercial
+
+declare(strict_types=1);
+
+final class EntradaCineCentroComercial
 {
     private string $value;
 
     public function __construct(string $value)
     {
-        if (empty($value)) {
-            throw new Exception("Valor inválido");
+        if (empty(trim($value))) {
+            throw new Exception("Centro comercial inválido");
         }
 
         $this->value = $value;

@@ -1,9 +1,15 @@
 <?php
 
-class InvalidEntradaCineIdException extends InvalidArgumentException
+declare(strict_types=1);
+
+namespace Domain\Exceptions;
+
+use InvalidArgumentException;
+
+final class InvalidEntradaCineIdException extends InvalidArgumentException
 {
     public static function becauseValueIsEmpty(): self
     {
-        return new self('El ID de la entrada de cine no puede estar vacío.');
+        return new self('El ID no puede estar vacío.');
     }
 }

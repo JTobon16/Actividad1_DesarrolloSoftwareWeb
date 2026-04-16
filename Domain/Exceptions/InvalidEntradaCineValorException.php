@@ -1,14 +1,20 @@
 <?php
 
-class InvalidEntradaCineValorException extends InvalidArgumentException
+declare(strict_types=1);
+
+namespace Domain\Exceptions;
+
+use InvalidArgumentException;
+
+final class InvalidEntradaCineValorException extends InvalidArgumentException
 {
     public static function becauseValueIsEmpty(): self
     {
-        return new self('El valor de la entrada no puede estar vacío.');
+        return new self('El valor no puede estar vacío.');
     }
 
     public static function becauseValueIsNotPositive(): self
     {
-        return new self('El valor de la entrada debe ser mayor a cero.');
+        return new self('El valor debe ser mayor a cero.');
     }
 }

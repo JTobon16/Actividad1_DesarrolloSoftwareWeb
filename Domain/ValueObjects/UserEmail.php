@@ -1,4 +1,7 @@
 <?php
+
+namespace Domain\ValueObjects;
+
 final class UserEmail
 {
     private string $value;
@@ -6,7 +9,7 @@ final class UserEmail
     public function __construct(string $value)
     {
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            throw new Exception("Email inválido");
+            throw new \InvalidArgumentException("Email inválido");
         }
 
         $this->value = $value;

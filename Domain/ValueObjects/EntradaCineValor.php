@@ -1,4 +1,9 @@
 <?php
+
+declare(strict_types=1);
+
+namespace Domain\ValueObjects;
+
 final class EntradaCineValor
 {
     private float $value;
@@ -6,7 +11,7 @@ final class EntradaCineValor
     public function __construct(float $value)
     {
         if ($value <= 0) {
-            throw new Exception("Valor inválido");
+            throw new \InvalidArgumentException("Valor inválido");
         }
 
         $this->value = $value;

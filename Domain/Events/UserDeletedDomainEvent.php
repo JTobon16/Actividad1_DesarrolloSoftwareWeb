@@ -1,9 +1,12 @@
 <?php
 
-require_once __DIR__ . '/DomainEvent.php';
-require_once __DIR__ . '/../ValueObjects/UserId.php';
+declare(strict_types=1);
 
-class UserDeletedDomainEvent extends DomainEvent
+namespace Domain\Events;
+
+use Domain\ValueObjects\UserId;
+
+final class UserDeletedDomainEvent extends DomainEvent
 {
     private UserId $userId;
 

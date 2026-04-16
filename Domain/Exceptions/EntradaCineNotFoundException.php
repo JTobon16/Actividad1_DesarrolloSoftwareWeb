@@ -1,6 +1,12 @@
 <?php
 
-class EntradaCineNotFoundException extends DomainException
+declare(strict_types=1);
+
+namespace Domain\Exceptions;
+
+use DomainException;
+
+final class EntradaCineNotFoundException extends DomainException
 {
     public static function becauseIdWasNotFound(string $id): self
     {
