@@ -23,13 +23,20 @@ final class CreateEntradaCineService implements CreateEntradaCineUseCase
 
     public function execute(CreateEntradaCineCommand $command): EntradaCineModel
     {
-        $id = new EntradaCineId($command->getId());
+
+        $id = EntradaCineId::generate();
+
 
         if ($this->getEntradaCineByIdPort->findById($id) !== null) {
             throw EntradaCineAlreadyExistsException::becauseEntradaAlreadyExists($id->value());
         }
 
-        $entrada = EntradaCineApplicationMapper::fromCreateCommandToModel($command);
+
+        $entrada = EntradaCineApplicationMapper::fromCreateCommandToModel(
+            $command,
+            $id // 
+        );
+
 
         return $this->saveEntradaCinePort->save($entrada);
     }

@@ -8,13 +8,13 @@ final class EntradaCineValor
 {
     private float $value;
 
-    public function __construct(float $value)
+    public function __construct(float|int|string $value)
     {
-        if ($value <= 0) {
+        if (!is_numeric($value) || $value <= 0) {
             throw new \InvalidArgumentException("Valor inválido");
         }
 
-        $this->value = $value;
+        $this->value = (float) $value;
     }
 
     public function value(): float

@@ -10,10 +10,10 @@ final class EntradaCineSala
 
     public function __construct(string $value)
     {
-        $value = trim($value);
+        $value = ucwords(strtolower(trim($value)));
 
         if ($value === '') {
-            throw new \InvalidArgumentException("Sala inválida");
+            throw new \InvalidArgumentException("Valor inválido");
         }
 
         $this->value = $value;

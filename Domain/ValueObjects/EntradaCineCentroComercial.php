@@ -10,7 +10,7 @@ final class EntradaCineCentroComercial
 
     public function __construct(string $value)
     {
-        $value = trim($value);
+        $value = ucwords(strtolower(trim($value)));
 
         if ($value === '') {
             throw new \InvalidArgumentException("Centro comercial inválido");

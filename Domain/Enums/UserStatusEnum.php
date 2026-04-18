@@ -8,10 +8,15 @@ use Domain\Exceptions\InvalidUserStatusException;
 
 final class UserStatusEnum
 {
-    public const ACTIVE   = 'ACTIVE';
+    public const ACTIVE = 'ACTIVE';
     public const INACTIVE = 'INACTIVE';
-    public const PENDING  = 'PENDING';
-    public const BLOCKED  = 'BLOCKED';
+    public const PENDING = 'PENDING';
+    public const BLOCKED = 'BLOCKED';
+
+    public static function normalize(string $value): string
+    {
+        return strtoupper(trim($value));
+    }
 
     public static function values(): array
     {
@@ -23,15 +28,14 @@ final class UserStatusEnum
         ];
     }
 
-    public static function isValid(string $value): bool
+    public static function ensureIsValid(string $value): string
     {
-        return in_array($value, self::values(), true);
-    }
+        $value = self::normalize($value);
 
-    public static function ensureIsValid(string $value): void
-    {
-        if (!self::isValid($value)) {
+        if (!in_array($value, self::values(), true)) {
             throw InvalidUserStatusException::becauseValueIsInvalid($value);
         }
+
+        return $value;
     }
 }
