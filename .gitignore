@@ -21,5 +21,16 @@
 /fuel/app/config/crypt.php
 public/test_db.php
 public/test_insert.php
+# Entorno
+.env
+
+# Archivos temporales o locales
+/public/hash.php
+
+# Dependencias (opcional, normalmente NO se sube vendor)
+/vendor/
+
+# Logs
+*.log
 
 /vendor/
