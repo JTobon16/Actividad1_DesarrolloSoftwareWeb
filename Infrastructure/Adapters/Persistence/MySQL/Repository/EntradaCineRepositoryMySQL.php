@@ -22,18 +22,19 @@ final class EntradaCineRepositoryMySQL implements
     GetEntradaCineByIdPort,
     GetAllEntradasCinePort
 {
-    private PDO                        $pdo;
+    private PDO $pdo;
     private EntradaCinePersistenceMapper $mapper;
 
     public function __construct(PDO $pdo, EntradaCinePersistenceMapper $mapper)
     {
-        $this->pdo    = $pdo;
+        $this->pdo = $pdo;
         $this->mapper = $mapper;
     }
 
     public function save(EntradaCineModel $entrada): EntradaCineModel
     {
         $dto = $this->mapper->fromModelToDto($entrada);
+
         $sql = '
             INSERT INTO entrada_cine (
                 id, fechaCompra, fechaEntrada, horaInicio, horaFin,
@@ -47,35 +48,40 @@ final class EntradaCineRepositoryMySQL implements
                 NOW(), NOW()
             )
         ';
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
-            ':id'              => $dto->id(),
-            ':fechaCompra'     => $dto->fechaCompra(),
-            ':fechaEntrada'    => $dto->fechaEntrada(),
-            ':horaInicio'      => $dto->horaInicio(),
-            ':horaFin'         => $dto->horaFin(),
-            ':valor'           => $dto->valor(),
-            ':pelicula'        => $dto->pelicula(),
-            ':puesto'          => $dto->puesto(),
-            ':sala'            => $dto->sala(),
-            ':genero'          => $dto->genero(),
-            ':cine'            => $dto->cine(),
-            ':pais'            => $dto->pais(),
-            ':departamento'    => $dto->departamento(),
-            ':ciudad'          => $dto->ciudad(),
+            ':id' => $dto->id(),
+            ':fechaCompra' => $dto->fechaCompra(),
+            ':fechaEntrada' => $dto->fechaEntrada(),
+            ':horaInicio' => $dto->horaInicio(),
+            ':horaFin' => $dto->horaFin(),
+            ':valor' => $dto->valor(),
+            ':pelicula' => $dto->pelicula(),
+            ':puesto' => $dto->puesto(),
+            ':sala' => $dto->sala(),
+            ':genero' => $dto->genero(),
+            ':cine' => $dto->cine(),
+            ':pais' => $dto->pais(),
+            ':departamento' => $dto->departamento(),
+            ':ciudad' => $dto->ciudad(),
             ':centroComercial' => $dto->centroComercial(),
         ]);
 
-        $saved = $this->getById(new EntradaCineId($dto->id()));
+        // 🔥 CORREGIDO: usar findById
+        $saved = $this->findById(new EntradaCineId($dto->id()));
+
         if ($saved === null) {
-            throw new RuntimeException('La entrada no pudo ser recuperada después de guardarse.');
+            throw new RuntimeException('No se pudo recuperar la entrada después de guardarla.');
         }
+
         return $saved;
     }
 
     public function update(EntradaCineModel $entrada): EntradaCineModel
     {
         $dto = $this->mapper->fromModelToDto($entrada);
+
         $sql = '
             UPDATE entrada_cine
             SET fechaCompra = :fechaCompra, fechaEntrada = :fechaEntrada,
@@ -87,52 +93,60 @@ final class EntradaCineRepositoryMySQL implements
                 updatedAt = NOW()
             WHERE id = :id
         ';
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
-            ':id'              => $dto->id(),
-            ':fechaCompra'     => $dto->fechaCompra(),
-            ':fechaEntrada'    => $dto->fechaEntrada(),
-            ':horaInicio'      => $dto->horaInicio(),
-            ':horaFin'         => $dto->horaFin(),
-            ':valor'           => $dto->valor(),
-            ':pelicula'        => $dto->pelicula(),
-            ':puesto'          => $dto->puesto(),
-            ':sala'            => $dto->sala(),
-            ':genero'          => $dto->genero(),
-            ':cine'            => $dto->cine(),
-            ':pais'            => $dto->pais(),
-            ':departamento'    => $dto->departamento(),
-            ':ciudad'          => $dto->ciudad(),
+            ':id' => $dto->id(),
+            ':fechaCompra' => $dto->fechaCompra(),
+            ':fechaEntrada' => $dto->fechaEntrada(),
+            ':horaInicio' => $dto->horaInicio(),
+            ':horaFin' => $dto->horaFin(),
+            ':valor' => $dto->valor(),
+            ':pelicula' => $dto->pelicula(),
+            ':puesto' => $dto->puesto(),
+            ':sala' => $dto->sala(),
+            ':genero' => $dto->genero(),
+            ':cine' => $dto->cine(),
+            ':pais' => $dto->pais(),
+            ':departamento' => $dto->departamento(),
+            ':ciudad' => $dto->ciudad(),
             ':centroComercial' => $dto->centroComercial(),
         ]);
 
-        $updated = $this->FindById(new EntradaCineId($dto->id()));
+        $updated = $this->findById(new EntradaCineId($dto->id()));
+
         if ($updated === null) {
-            throw new RuntimeException('La entrada no pudo ser recuperada después de actualizarse.');
+            throw new RuntimeException('No se pudo recuperar la entrada después de actualizarla.');
         }
+
         return $updated;
     }
 
-    public function FindById(EntradaCineId $id): ?EntradaCineModel
+    // 🔥 NOMBRE CORRECTO
+    public function findById(EntradaCineId $id): ?EntradaCineModel
     {
-        $sql  = 'SELECT * FROM entrada_cine WHERE id = :id LIMIT 1';
+        $sql = 'SELECT * FROM entrada_cine WHERE id = :id LIMIT 1';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id' => $id->value()]);
+
         $row = $stmt->fetch();
+
         return $row === false ? null : $this->mapper->fromRowToModel($row);
     }
 
-    public function FindAll(): array
+    public function findAll(): array
     {
-        $sql  = 'SELECT * FROM entrada_cine ORDER BY fechaEntrada DESC';
+        $sql = 'SELECT * FROM entrada_cine ORDER BY fechaEntrada DESC';
         $stmt = $this->pdo->query($sql);
+
         $rows = $stmt->fetchAll();
+
         return $this->mapper->fromRowsToModels($rows);
     }
 
     public function delete(EntradaCineId $id): void
     {
-        $sql  = 'DELETE FROM entrada_cine WHERE id = :id';
+        $sql = 'DELETE FROM entrada_cine WHERE id = :id';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id' => $id->value()]);
     }
