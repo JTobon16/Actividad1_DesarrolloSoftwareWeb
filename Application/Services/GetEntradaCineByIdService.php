@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace Application\Services;
 
-
 use Application\Ports\In\GetEntradaCineByIdUseCase;
 use Application\Ports\Out\GetEntradaCineByIdPort;
 use Application\Services\Dto\Queries\GetEntradaCineByIdQuery;
-use Application\Services\Mappers\EntradaCineApplicationMapper;
-
-use Domain\Models\EntradaCineModel;
-use Domain\Exceptions\EntradaCineNotFoundException;
+use Domain\ValueObjects\EntradaCineId;
 
 final class GetEntradaCineByIdService implements GetEntradaCineByIdUseCase
 {
@@ -19,16 +15,10 @@ final class GetEntradaCineByIdService implements GetEntradaCineByIdUseCase
         private GetEntradaCineByIdPort $getEntradaCineByIdPort
     ) {}
 
-    public function execute(GetEntradaCineByIdQuery $query): EntradaCineModel
+    public function execute(GetEntradaCineByIdQuery $query)
     {
-        $id = EntradaCineApplicationMapper::fromGetByIdQueryToId($query);
+        $id = new EntradaCineId($query->getId());
 
-        $entrada = $this->getEntradaCineByIdPort->findById($id);
-
-        if ($entrada === null) {
-            throw EntradaCineNotFoundException::becauseIdWasNotFound($id->value());
-        }
-
-        return $entrada;
+        return $this->getEntradaCineByIdPort->findById($id);
     }
 }

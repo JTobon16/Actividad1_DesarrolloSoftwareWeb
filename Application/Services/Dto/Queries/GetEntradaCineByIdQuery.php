@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Services\Dto\Queries;
-class GetEntradaCineByIdQuery
+
+final class GetEntradaCineByIdQuery
 {
-    public function __construct(
-        private readonly string $id
-    ) {}
+    public function __construct(private string $id) {}
 
     public function getId(): string
     {

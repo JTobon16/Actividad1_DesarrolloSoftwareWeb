@@ -52,7 +52,7 @@ final class EntradaCinePersistenceMapper
             new EntradaCineFecha($row['fechaEntrada']),
             new EntradaCineHora($row['horaInicio']),
             new EntradaCineHora($row['horaFin']),
-            new EntradaCineValor($row['valor']), // 🔥 CORREGIDO (SIN float)
+            new EntradaCineValor($row['valor']),
             new EntradaCinePelicula($row['pelicula']),
             new EntradaCinePuesto($row['puesto']),
             new EntradaCineSala($row['sala']),

@@ -10,47 +10,43 @@ use Infrastructure\Entrypoints\Web\Controllers\EntradaCineController;
 use Application\Services\CreateEntradaCineService;
 use Application\Services\UpdateEntradaCineService;
 use Application\Services\GetAllEntradasCineService;
+use Application\Services\GetEntradaCineByIdService;
+use Application\Services\DeleteEntradaCineService;
 
-//  Infraestructura REAL (TU ESTRUCTURA)
+// Infra
 use Infrastructure\Adapters\Persistence\MySQL\Config\Connection;
 use Infrastructure\Adapters\Persistence\MySQL\Repository\EntradaCineRepositoryMySQL;
 use Infrastructure\Adapters\Persistence\MySQL\Mapper\EntradaCinePersistenceMapper;
 
+// CARGA AUTOMÁTICA DE CLASES
 class DependencyInjection
 {
-    //  Boot del sistema
     public static function boot(): void
     {
         ClassLoader::register();
     }
-
-
-    //CONEXIÓN BD
 
     public static function getConnection(): Connection
     {
         return new Connection(
             '127.0.0.1',
             3306,
-            'cine_db', // ⚠️ cambia si es diferente
+            'cine_db',
             'root',
             ''
         );
     }
-
+    // REPOSITORIES
     public static function getPdo(): \PDO
     {
         return self::getConnection()->createPdo();
     }
-
-    // MAPPER INFRA
+    // MAPPER
     public static function getPersistenceMapper(): EntradaCinePersistenceMapper
     {
         return new EntradaCinePersistenceMapper();
     }
-
-    //REPOSITORY
-
+    // REPOSITORY
     public static function getEntradaCineRepository(): EntradaCineRepositoryMySQL
     {
         return new EntradaCineRepositoryMySQL(
@@ -59,18 +55,15 @@ class DependencyInjection
         );
     }
 
-
-    //USE CASES
-
-
+    // USE CASES
     public static function getCreateEntradaCineUseCase(): CreateEntradaCineService
     {
         return new CreateEntradaCineService(
-            self::getEntradaCineRepository(), // Save
-            self::getEntradaCineRepository()  // GetById
+            self::getEntradaCineRepository(),
+            self::getEntradaCineRepository()
         );
     }
-
+    // NUEVO UPDATE
     public static function getUpdateEntradaCineUseCase(): UpdateEntradaCineService
     {
         return new UpdateEntradaCineService(
@@ -78,23 +71,38 @@ class DependencyInjection
             self::getEntradaCineRepository()
         );
     }
-
+    //  NUEVO GET ALL
     public static function getGetAllEntradaCineUseCase(): GetAllEntradasCineService
     {
         return new GetAllEntradasCineService(
             self::getEntradaCineRepository()
         );
     }
+    // NUEVO GET BY ID
+    public static function getGetEntradaCineByIdUseCase(): GetEntradaCineByIdService
+    {
+        return new GetEntradaCineByIdService(
+            self::getEntradaCineRepository()
+        );
+    }
 
+    //  NUEVO DELETE
+    public static function getDeleteEntradaCineUseCase(): DeleteEntradaCineService
+    {
+        return new DeleteEntradaCineService(
+            self::getEntradaCineRepository()
+        );
+    }
 
     // CONTROLLER
-
     public static function getEntradaCineController(): EntradaCineController
     {
         return new EntradaCineController(
             self::getCreateEntradaCineUseCase(),
             self::getUpdateEntradaCineUseCase(),
-            self::getGetAllEntradaCineUseCase()
+            self::getGetAllEntradaCineUseCase(),
+            self::getGetEntradaCineByIdUseCase(),
+            self::getDeleteEntradaCineUseCase()
         );
     }
 }

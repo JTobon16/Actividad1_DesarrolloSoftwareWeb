@@ -12,7 +12,13 @@ final class EntradaCineHora
     {
         $value = trim($value);
 
-        if (!preg_match('/^\d{1,2}:\d{2}$/', $value)) {
+
+        if (preg_match('/^\d{1,2}:\d{2}$/', $value)) {
+            $value .= ':00';
+        }
+
+        // Validar formato final HH:MM:SS
+        if (!preg_match('/^\d{1,2}:\d{2}:\d{2}$/', $value)) {
             throw new \InvalidArgumentException("Hora inválida");
         }
 
