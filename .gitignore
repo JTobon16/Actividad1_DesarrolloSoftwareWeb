@@ -19,5 +19,7 @@
 /fuel/app/logs/*/*/*
 /fuel/app/cache/*/*
 /fuel/app/config/crypt.php
+public/test_db.php
+public/test_insert.php
 
 /vendor/
