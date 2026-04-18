@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Ports/In/GetAllEntradasCineUseCase.php';
-require_once __DIR__ . '/../Ports/Out/GetAllEntradasCinePort.php';
+namespace Application\EntradaCine\Services;
+
+use Application\EntradaCine\Ports\In\GetAllEntradasCineUseCase;
+use Application\EntradaCine\Ports\Out\GetAllEntradasCinePort;
+use Application\EntradaCine\Dto\Queries\GetAllEntradasCineQuery;
 
 final class GetAllEntradasCineService implements GetAllEntradasCineUseCase
 {
-    private GetAllEntradasCinePort $getAllEntradasCinePort;
-
-    public function __construct(GetAllEntradasCinePort $getAllEntradasCinePort)
-    {
-        $this->getAllEntradasCinePort = $getAllEntradasCinePort;
-    }
+    public function __construct(
+        private GetAllEntradasCinePort $getAllEntradasCinePort
+    ) {}
 
     public function execute(GetAllEntradasCineQuery $query): array
     {

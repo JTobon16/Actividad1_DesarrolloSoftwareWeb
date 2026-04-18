@@ -2,31 +2,28 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Ports/In/DeleteUserUseCase.php';
-require_once __DIR__ . '/../Ports/Out/DeleteUserPort.php';
-require_once __DIR__ . '/../Ports/Out/GetUserByIdPort.php';
-require_once __DIR__ . '/Mappers/UserApplicationMapper.php';
-require_once __DIR__ . '/../../Domain/Exceptions/UserNotFoundException.php';
+namespace Application\User\Services;
+
+use Application\User\Ports\In\DeleteUserUseCase;
+use Application\User\Ports\Out\DeleteUserPort;
+use Application\User\Ports\Out\GetUserByIdPort;
+use Application\User\Dto\Commands\DeleteUserCommand;
+use Application\Mappers\UserApplicationMapper;
+
+use Domain\Exceptions\UserNotFoundException;
 
 final class DeleteUserService implements DeleteUserUseCase
 {
-    private DeleteUserPort  $deleteUserPort;
-    private GetUserByIdPort $getUserByIdPort;
-
     public function __construct(
-        DeleteUserPort  $deleteUserPort,
-        GetUserByIdPort $getUserByIdPort
-    ) {
-        $this->deleteUserPort  = $deleteUserPort;
-        $this->getUserByIdPort = $getUserByIdPort;
-    }
+        private DeleteUserPort $deleteUserPort,
+        private GetUserByIdPort $getUserByIdPort
+    ) {}
 
     public function execute(DeleteUserCommand $command): void
     {
-        $userId       = UserApplicationMapper::fromDeleteCommandToUserId($command);
-        $existingUser = $this->getUserByIdPort->getById($userId);
+        $userId = UserApplicationMapper::fromDeleteCommandToUserId($command);
 
-        if ($existingUser === null) {
+        if ($this->getUserByIdPort->findById($userId) === null) {
             throw UserNotFoundException::becauseIdWasNotFound($userId->value());
         }
 

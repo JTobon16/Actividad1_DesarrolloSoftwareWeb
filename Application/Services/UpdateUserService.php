@@ -2,46 +2,45 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Ports/In/UpdateUserUseCase.php';
-require_once __DIR__ . '/../Ports/Out/UpdateUserPort.php';
-require_once __DIR__ . '/../Ports/Out/GetUserByIdPort.php';
-require_once __DIR__ . '/../Ports/Out/GetUserByEmailPort.php';
-require_once __DIR__ . '/Mappers/UserApplicationMapper.php';
-require_once __DIR__ . '/../../Domain/Exceptions/UserNotFoundException.php';
-require_once __DIR__ . '/../../Domain/Exceptions/UserAlreadyExistsException.php';
-require_once __DIR__ . '/../../Domain/ValueObjects/UserId.php';
-require_once __DIR__ . '/../../Domain/ValueObjects/UserEmail.php';
-require_once __DIR__ . '/../../Domain/ValueObjects/UserPassword.php';
+namespace Application\User\Services;
+
+use Application\User\Ports\In\UpdateUserUseCase;
+use Application\User\Ports\Out\UpdateUserPort;
+use Application\User\Ports\Out\GetUserByIdPort;
+use Application\User\Ports\Out\GetUserByEmailPort;
+use Application\User\Dto\Commands\UpdateUserCommand;
+
+use Domain\Models\UserModel;
+use Domain\ValueObjects\UserId;
+use Domain\ValueObjects\UserEmail;
+use Domain\ValueObjects\UserPassword;
+use Domain\ValueObjects\UserName;
+use Domain\Exceptions\UserNotFoundException;
+use Domain\Exceptions\UserAlreadyExistsException;
 
 final class UpdateUserService implements UpdateUserUseCase
 {
-    private UpdateUserPort     $updateUserPort;
-    private GetUserByIdPort    $getUserByIdPort;
-    private GetUserByEmailPort $getUserByEmailPort;
-
     public function __construct(
-        UpdateUserPort     $updateUserPort,
-        GetUserByIdPort    $getUserByIdPort,
-        GetUserByEmailPort $getUserByEmailPort
-    ) {
-        $this->updateUserPort     = $updateUserPort;
-        $this->getUserByIdPort    = $getUserByIdPort;
-        $this->getUserByEmailPort = $getUserByEmailPort;
-    }
+        private UpdateUserPort $updateUserPort,
+        private GetUserByIdPort $getUserByIdPort,
+        private GetUserByEmailPort $getUserByEmailPort
+    ) {}
 
     public function execute(UpdateUserCommand $command): UserModel
     {
-        $userId      = new UserId($command->getId());
-        $currentUser = $this->getUserByIdPort->getById($userId);
+        $userId = new UserId($command->getId());
+
+        $currentUser = $this->getUserByIdPort->findById($userId);
 
         if ($currentUser === null) {
             throw UserNotFoundException::becauseIdWasNotFound($userId->value());
         }
 
-        $newEmail         = new UserEmail($command->getEmail());
+        $newEmail = new UserEmail($command->getEmail());
+
         $userWithSameEmail = $this->getUserByEmailPort->getByEmail($newEmail);
 
-        if ($userWithSameEmail !== null && !$userWithSameEmail->id()->equals($userId)) {
+        if ($userWithSameEmail !== null && !$userWithSameEmail->id()->value() === $userId->value()) {
             throw UserAlreadyExistsException::becauseEmailAlreadyExists($newEmail->value());
         }
 
@@ -52,7 +51,7 @@ final class UpdateUserService implements UpdateUserUseCase
         $userToUpdate = new UserModel(
             $userId,
             new UserName($command->getName()),
-            new UserEmail($command->getEmail()),
+            $newEmail,
             $password,
             $command->getRole(),
             $command->getStatus()

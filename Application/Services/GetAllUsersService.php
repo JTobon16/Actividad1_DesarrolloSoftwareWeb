@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Ports/In/GetAllUsersUseCase.php';
-require_once __DIR__ . '/../Ports/Out/GetAllUsersPort.php';
+namespace Application\User\Services;
+
+use Application\User\Ports\In\GetAllUsersUseCase;
+use Application\User\Ports\Out\GetAllUsersPort;
+use Application\User\Dto\Queries\GetAllUsersQuery;
 
 final class GetAllUsersService implements GetAllUsersUseCase
 {
-    private GetAllUsersPort $getAllUsersPort;
-
-    public function __construct(GetAllUsersPort $getAllUsersPort)
-    {
-        $this->getAllUsersPort = $getAllUsersPort;
-    }
+    public function __construct(
+        private GetAllUsersPort $getAllUsersPort
+    ) {}
 
     public function execute(GetAllUsersQuery $query): array
     {

@@ -2,31 +2,28 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Ports/In/DeleteEntradaCineUseCase.php';
-require_once __DIR__ . '/../Ports/Out/DeleteEntradaCinePort.php';
-require_once __DIR__ . '/../Ports/Out/GetEntradaCineByIdPort.php';
-require_once __DIR__ . '/Mappers/EntradaCineApplicationMapper.php';
-require_once __DIR__ . '/../../Domain/Exceptions/EntradaCineNotFoundException.php';
+namespace Application\EntradaCine\Services;
+
+use Application\EntradaCine\Ports\In\DeleteEntradaCineUseCase;
+use Application\EntradaCine\Ports\Out\DeleteEntradaCinePort;
+use Application\EntradaCine\Ports\Out\GetEntradaCineByIdPort;
+use Application\EntradaCine\Dto\Commands\DeleteEntradaCineCommand;
+use Application\Mappers\EntradaCineApplicationMapper;
+
+use Domain\Exceptions\EntradaCineNotFoundException;
 
 final class DeleteEntradaCineService implements DeleteEntradaCineUseCase
 {
-    private DeleteEntradaCinePort  $deleteEntradaCinePort;
-    private GetEntradaCineByIdPort $getEntradaCineByIdPort;
-
     public function __construct(
-        DeleteEntradaCinePort  $deleteEntradaCinePort,
-        GetEntradaCineByIdPort $getEntradaCineByIdPort
-    ) {
-        $this->deleteEntradaCinePort  = $deleteEntradaCinePort;
-        $this->getEntradaCineByIdPort = $getEntradaCineByIdPort;
-    }
+        private DeleteEntradaCinePort $deleteEntradaCinePort,
+        private GetEntradaCineByIdPort $getEntradaCineByIdPort
+    ) {}
 
     public function execute(DeleteEntradaCineCommand $command): void
     {
-        $id              = EntradaCineApplicationMapper::fromDeleteCommandToId($command);
-        $existingEntrada = $this->getEntradaCineByIdPort->getById($id);
+        $id = EntradaCineApplicationMapper::fromDeleteCommandToId($command);
 
-        if ($existingEntrada === null) {
+        if ($this->getEntradaCineByIdPort->findById($id) === null) {
             throw EntradaCineNotFoundException::becauseIdWasNotFound($id->value());
         }
 

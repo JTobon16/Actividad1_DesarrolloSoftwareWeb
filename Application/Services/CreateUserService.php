@@ -2,36 +2,35 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Ports/In/CreateUserUseCase.php';
-require_once __DIR__ . '/../Ports/Out/SaveUserPort.php';
-require_once __DIR__ . '/../Ports/Out/GetUserByEmailPort.php';
-require_once __DIR__ . '/Mappers/UserApplicationMapper.php';
-require_once __DIR__ . '/../../Domain/Exceptions/UserAlreadyExistsException.php';
-require_once __DIR__ . '/../../Domain/ValueObjects/UserEmail.php';
+namespace Application\User\Services;
+
+use Application\User\Ports\In\CreateUserUseCase;
+use Application\User\Ports\Out\SaveUserPort;
+use Application\User\Ports\Out\GetUserByEmailPort;
+use Application\User\Dto\Commands\CreateUserCommand;
+use Application\Mappers\UserApplicationMapper;
+
+use Domain\Models\UserModel;
+use Domain\ValueObjects\UserEmail;
+use Domain\Exceptions\UserAlreadyExistsException;
 
 final class CreateUserService implements CreateUserUseCase
 {
-    private SaveUserPort         $saveUserPort;
-    private GetUserByEmailPort   $getUserByEmailPort;
-
     public function __construct(
-        SaveUserPort       $saveUserPort,
-        GetUserByEmailPort $getUserByEmailPort
-    ) {
-        $this->saveUserPort       = $saveUserPort;
-        $this->getUserByEmailPort = $getUserByEmailPort;
-    }
+        private SaveUserPort $saveUserPort,
+        private GetUserByEmailPort $getUserByEmailPort
+    ) {}
 
     public function execute(CreateUserCommand $command): UserModel
     {
-        $email        = new UserEmail($command->getEmail());
-        $existingUser = $this->getUserByEmailPort->getByEmail($email);
+        $email = new UserEmail($command->getEmail());
 
-        if ($existingUser !== null) {
+        if ($this->getUserByEmailPort->getByEmail($email) !== null) {
             throw UserAlreadyExistsException::becauseEmailAlreadyExists($email->value());
         }
 
         $user = UserApplicationMapper::fromCreateCommandToModel($command);
+
         return $this->saveUserPort->save($user);
     }
 }
