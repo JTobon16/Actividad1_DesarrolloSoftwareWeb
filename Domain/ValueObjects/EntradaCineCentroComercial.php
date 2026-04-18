@@ -2,14 +2,18 @@
 
 declare(strict_types=1);
 
+namespace Domain\ValueObjects;
+
 final class EntradaCineCentroComercial
 {
     private string $value;
 
     public function __construct(string $value)
     {
-        if (empty(trim($value))) {
-            throw new Exception("Centro comercial inválido");
+        $value = trim($value);
+
+        if ($value === '') {
+            throw new \InvalidArgumentException("Centro comercial inválido");
         }
 
         $this->value = $value;

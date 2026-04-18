@@ -1,0 +1,16 @@
+{
+    "name": "altoc/actividad1",
+    "authors": [
+        {
+            "name": "Jonathan Tobon",
+            "email": "jtobonc@unicartagena.edu.co"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Application\\": "Application/",
+            "Domain\\": "Domain/"
+        }
+    },
+    "require": {}
+}
