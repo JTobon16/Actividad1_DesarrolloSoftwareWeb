@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
+namespace Application\User\Dto\Commands;
+
 final class LoginCommand
 {
-    private string $email;
-    private string $password;
-
-    public function __construct(string $email, string $password)
-    {
-        $this->email    = trim($email);
-        $this->password = $password;
-    }
+    public function __construct(
+        private string $email,
+        private string $password
+    ) {}
 
     public function getEmail(): string
     {

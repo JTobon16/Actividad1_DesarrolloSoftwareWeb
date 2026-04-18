@@ -2,14 +2,11 @@
 
 declare(strict_types=1);
 
+namespace Application\EntradaCine\Dto\Commands;
+
 final class DeleteEntradaCineCommand
 {
-    private string $id;
-
-    public function __construct(string $id)
-    {
-        $this->id = trim($id);
-    }
+    public function __construct(private string $id) {}
 
     public function getId(): string
     {

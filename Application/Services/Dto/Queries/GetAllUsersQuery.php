@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+namespace Application\User\Dto\Queries;
+
 final class GetAllUsersQuery
 {
-    // Sin datos: solo representa la intención de listar todos los usuarios
+    // Representa la intención de listar todos los usuarios
 }

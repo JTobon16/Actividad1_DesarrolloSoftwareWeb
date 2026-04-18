@@ -2,57 +2,27 @@
 
 declare(strict_types=1);
 
+namespace Application\EntradaCine\Dto\Commands;
+
 final class UpdateEntradaCineCommand
 {
-    private string $id;
-    private string $fechaCompra;
-    private string $fechaEntrada;
-    private string $horaInicio;
-    private string $horaFin;
-    private string $valor;
-    private string $pelicula;
-    private string $puesto;
-    private string $sala;
-    private string $genero;
-    private string $cine;
-    private string $pais;
-    private string $departamento;
-    private string $ciudad;
-    private string $centroComercial;
-
     public function __construct(
-        string $id,
-        string $fechaCompra,
-        string $fechaEntrada,
-        string $horaInicio,
-        string $horaFin,
-        string $valor,
-        string $pelicula,
-        string $puesto,
-        string $sala,
-        string $genero,
-        string $cine,
-        string $pais,
-        string $departamento,
-        string $ciudad,
-        string $centroComercial
-    ) {
-        $this->id              = trim($id);
-        $this->fechaCompra     = trim($fechaCompra);
-        $this->fechaEntrada    = trim($fechaEntrada);
-        $this->horaInicio      = trim($horaInicio);
-        $this->horaFin         = trim($horaFin);
-        $this->valor           = trim($valor);
-        $this->pelicula        = trim($pelicula);
-        $this->puesto          = trim($puesto);
-        $this->sala            = trim($sala);
-        $this->genero          = trim($genero);
-        $this->cine            = trim($cine);
-        $this->pais            = trim($pais);
-        $this->departamento    = trim($departamento);
-        $this->ciudad          = trim($ciudad);
-        $this->centroComercial = trim($centroComercial);
-    }
+        private string $id,
+        private string $fechaCompra,
+        private string $fechaEntrada,
+        private string $horaInicio,
+        private string $horaFin,
+        private string $valor,
+        private string $pelicula,
+        private string $puesto,
+        private string $sala,
+        private string $genero,
+        private string $cine,
+        private string $pais,
+        private string $departamento,
+        private string $ciudad,
+        private string $centroComercial
+    ) {}
 
     public function getId(): string
     {

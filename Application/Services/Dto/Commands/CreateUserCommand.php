@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Application\User\Dto\Commands;
+
 final class CreateUserCommand
 {
     private string $id;
@@ -17,11 +19,11 @@ final class CreateUserCommand
         string $password,
         string $role
     ) {
-        $this->id       = trim($id);
-        $this->name     = trim($name);
-        $this->email    = trim($email);
-        $this->password = trim($password);
-        $this->role     = trim($role);
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
+        $this->role = $role;
     }
 
     public function getId(): string

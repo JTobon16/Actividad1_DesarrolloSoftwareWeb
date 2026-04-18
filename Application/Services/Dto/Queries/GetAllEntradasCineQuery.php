@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+namespace Application\EntradaCine\Dto\Queries;
+
 final class GetAllEntradasCineQuery
 {
-    // Sin datos: solo representa la intención de listar todas las entradas
+    // Representa la intención de listar todas las entradas
 }
