@@ -1,8 +1,20 @@
 <?php
 
-require_once __DIR__ . '/../../Services/Dto/Queries/GetEntradaCineByIdQuery.php';
+declare(strict_types=1);
 
-interface GetEntradaCineByIdUseCase
+namespace Application\Dto\Queries;
+
+final class GetEntradaCineByIdQuery
 {
-    public function execute(GetEntradaCineByIdQuery $query): array;
+    private string $id;
+
+    public function __construct(string $id)
+    {
+        $this->id = trim($id);
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
 }

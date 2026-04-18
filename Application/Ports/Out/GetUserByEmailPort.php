@@ -1,6 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Application\User\Ports\Out;
+
+use Domain\Models\UserModel;
+use Domain\ValueObjects\UserEmail;
+
 interface GetUserByEmailPort
 {
-    public function findByEmail(string $email): ?UserModel;
+    public function findByEmail(UserEmail $email): ?UserModel;
 }

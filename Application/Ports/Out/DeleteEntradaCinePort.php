@@ -1,8 +1,12 @@
 <?php
 
-namespace Application\Ports\Out;
+declare(strict_types=1);
+
+namespace Application\EntradaCine\Ports\Out;
+
+use Domain\ValueObjects\EntradaCineId;
 
 interface DeleteEntradaCinePort
 {
-    public function delete(string $id): void;
+    public function delete(EntradaCineId $id): void;
 }
