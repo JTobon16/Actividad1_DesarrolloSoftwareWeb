@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Application\EntradaCine\Services;
+namespace Application\Services;
 
-use Application\EntradaCine\Ports\In\UpdateEntradaCineUseCase;
-use Application\EntradaCine\Ports\Out\UpdateEntradaCinePort;
-use Application\EntradaCine\Ports\Out\GetEntradaCineByIdPort;
-use Application\EntradaCine\Dto\Commands\UpdateEntradaCineCommand;
-use Application\Mappers\EntradaCineApplicationMapper;
+use Application\Ports\In\UpdateEntradaCineUseCase;
+use Application\Ports\Out\UpdateEntradaCinePort;
+use Application\Ports\Out\GetEntradaCineByIdPort;
+use Application\Services\Dto\Commands\UpdateEntradaCineCommand;
+use Application\Services\Mappers\EntradaCineApplicationMapper;
 
 use Domain\Models\EntradaCineModel;
 use Domain\ValueObjects\EntradaCineId;

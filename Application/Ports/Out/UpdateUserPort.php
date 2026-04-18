@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\EntradaCine\Ports\Out;
+namespace Application\Ports\Out;
 
-use Domain\Models\EntradaCineModel;
+use Domain\Models\UserModel;
 
-interface UpdateEntradaCinePort
+interface UpdateUserPort
 {
-    public function update(EntradaCineModel $entradaCine): EntradaCineModel;
+    public function update(UserModel $user): UserModel;
 }

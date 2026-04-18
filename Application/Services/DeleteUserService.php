@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Application\User\Services;
 
-use Application\User\Ports\In\DeleteUserUseCase;
-use Application\User\Ports\Out\DeleteUserPort;
-use Application\User\Ports\Out\GetUserByIdPort;
-use Application\User\Dto\Commands\DeleteUserCommand;
-use Application\Mappers\UserApplicationMapper;
+use Application\Ports\In\DeleteUserUseCase;
+use Application\Ports\Out\DeleteUserPort;
+use Application\Ports\Out\GetUserByIdPort;
+use Application\Services\Dto\Commands\DeleteUserCommand;
+use Application\Services\Mappers\UserApplicationMapper;
 
 use Domain\Exceptions\UserNotFoundException;
 

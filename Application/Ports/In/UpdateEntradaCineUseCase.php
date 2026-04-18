@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\EntradaCine\Ports\In;
+namespace Application\Ports\In;
 
-use Application\EntradaCine\Dto\Commands\UpdateEntradaCineCommand;
+use Application\Services\Dto\Commands\UpdateEntradaCineCommand;
 use Domain\Models\EntradaCineModel;
 
 interface UpdateEntradaCineUseCase

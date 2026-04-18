@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\EntradaCine\Ports\In;
+namespace Application\Ports\In;
 
-use Application\EntradaCine\Dto\Queries\GetAllEntradasCineQuery;
+use Application\Services\Dto\Queries\GetAllEntradasCineQuery;
 use Domain\Models\EntradaCineModel;
 
 interface GetAllEntradasCineUseCase

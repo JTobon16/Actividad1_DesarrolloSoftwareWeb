@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Application\Mappers;
+namespace Application\Services\Mappers;
 
-use Application\User\Dto\Commands\CreateUserCommand;
-use Application\User\Dto\Commands\UpdateUserCommand;
-use Application\User\Dto\Commands\DeleteUserCommand;
-use Application\User\Dto\Queries\GetUserByIdQuery;
+use Application\Services\Dto\Commands\CreateUserCommand;
+use Application\Services\Dto\Commands\UpdateUserCommand;
+use Application\Services\Dto\Commands\DeleteUserCommand;
+use Application\Services\Dto\Queries\GetUserByIdQuery;
 
 use Domain\Models\UserModel;
 use Domain\ValueObjects\UserId;

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Application\User\Services;
 
-use Application\User\Ports\In\CreateUserUseCase;
-use Application\User\Ports\Out\SaveUserPort;
-use Application\User\Ports\Out\GetUserByEmailPort;
-use Application\User\Dto\Commands\CreateUserCommand;
-use Application\Mappers\UserApplicationMapper;
+use Application\Ports\In\CreateUserUseCase;
+use Application\Ports\Out\SaveUserPort;
+use Application\Ports\Out\GetUserByEmailPort;
+use Application\Services\Dto\Commands\CreateUserCommand;
+use Application\Services\Mappers\UserApplicationMapper;
 
 use Domain\Models\UserModel;
 use Domain\ValueObjects\UserEmail;
@@ -25,7 +25,7 @@ final class CreateUserService implements CreateUserUseCase
     {
         $email = new UserEmail($command->getEmail());
 
-        if ($this->getUserByEmailPort->getByEmail($email) !== null) {
+        if ($this->getUserByEmailPort->FindByEmail($email) !== null) {
             throw UserAlreadyExistsException::becauseEmailAlreadyExists($email->value());
         }
 

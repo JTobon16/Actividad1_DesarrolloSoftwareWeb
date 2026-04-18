@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\EntradaCine\Ports\Out;
+namespace Application\Ports\Out;
 
 use Domain\Models\EntradaCineModel;
 use Domain\ValueObjects\EntradaCineId;

@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Application\User\Services;
+namespace Application\Services;
 
-use Application\User\Ports\In\UpdateUserUseCase;
-use Application\User\Ports\Out\UpdateUserPort;
-use Application\User\Ports\Out\GetUserByIdPort;
-use Application\User\Ports\Out\GetUserByEmailPort;
-use Application\User\Dto\Commands\UpdateUserCommand;
+
+use Application\Ports\In\UpdateUserUseCase;
+use Application\Ports\Out\UpdateUserPort;
+use Application\Ports\Out\GetUserByIdPort;
+use Application\Ports\Out\GetUserByEmailPort;
+use Application\Services\Dto\Commands\UpdateUserCommand;
 
 use Domain\Models\UserModel;
 use Domain\ValueObjects\UserId;
@@ -38,7 +39,7 @@ final class UpdateUserService implements UpdateUserUseCase
 
         $newEmail = new UserEmail($command->getEmail());
 
-        $userWithSameEmail = $this->getUserByEmailPort->getByEmail($newEmail);
+        $userWithSameEmail = $this->getUserByEmailPort->findByEmail($newEmail);
 
         if ($userWithSameEmail !== null && !$userWithSameEmail->id()->value() === $userId->value()) {
             throw UserAlreadyExistsException::becauseEmailAlreadyExists($newEmail->value());

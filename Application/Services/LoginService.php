@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Application\User\Services;
 
-use Application\User\Ports\In\LoginUseCase;
-use Application\User\Ports\Out\GetUserByEmailPort;
-use Application\User\Dto\Commands\LoginCommand;
+use Application\Ports\In\LoginUseCase;
+use Application\Ports\Out\GetUserByEmailPort;
+use Application\Services\Dto\Commands\LoginCommand;
 
 use Domain\Models\UserModel;
 use Domain\ValueObjects\UserEmail;
@@ -23,7 +23,7 @@ final class LoginService implements LoginUseCase
     {
         $email = new UserEmail($command->getEmail());
 
-        $user = $this->getUserByEmailPort->getByEmail($email);
+        $user = $this->getUserByEmailPort->FindByEmail($email);
 
         if ($user === null || !$user->password()->verifyPlain($command->getPassword())) {
             throw InvalidCredentialsException::becauseCredentialsAreInvalid();

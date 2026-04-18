@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Application\EntradaCine\Services;
+namespace Application\Services;
 
-use Application\EntradaCine\Ports\In\GetAllEntradasCineUseCase;
-use Application\EntradaCine\Ports\Out\GetAllEntradasCinePort;
-use Application\EntradaCine\Dto\Queries\GetAllEntradasCineQuery;
+use Application\Ports\In\GetAllEntradasCineUseCase;
+use Application\Ports\Out\GetAllEntradasCinePort;
+use Application\Services\Dto\Queries\GetAllEntradasCineQuery;
 
 final class GetAllEntradasCineService implements GetAllEntradasCineUseCase
 {
@@ -16,6 +16,6 @@ final class GetAllEntradasCineService implements GetAllEntradasCineUseCase
 
     public function execute(GetAllEntradasCineQuery $query): array
     {
-        return $this->getAllEntradasCinePort->getAll();
+        return $this->getAllEntradasCinePort->FindAll();
     }
 }

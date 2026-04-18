@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\EntradaCine\Dto\Commands;
+namespace Application\Services\Dto\Commands;
 
 final class UpdateEntradaCineCommand
 {

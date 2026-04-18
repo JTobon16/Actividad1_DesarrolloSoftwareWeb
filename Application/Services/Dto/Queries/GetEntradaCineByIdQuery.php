@@ -1,5 +1,6 @@
 <?php
 
+namespace Application\Services\Dto\Queries;
 class GetEntradaCineByIdQuery
 {
     public function __construct(

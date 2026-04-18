@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Application\User\Services;
+namespace Application\Services;
 
-use Application\User\Ports\In\GetUserByIdUseCase;
-use Application\User\Ports\Out\GetUserByIdPort;
-use Application\User\Dto\Queries\GetUserByIdQuery;
-use Application\Mappers\UserApplicationMapper;
+use Application\Ports\In\GetUserByIdUseCase;
+use Application\Ports\Out\GetUserByIdPort;
+use Application\Services\Dto\Queries\GetUserByIdQuery;
+use Application\Services\Mappers\UserApplicationMapper;
 
 use Domain\Models\UserModel;
 use Domain\Exceptions\UserNotFoundException;

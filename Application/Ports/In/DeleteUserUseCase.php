@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\User\Ports\In;
+namespace Application\Ports\In;
 
-use Application\User\Dto\Commands\DeleteUserCommand;
+use Application\Services\Dto\Commands\DeleteUserCommand;
 
 interface DeleteUserUseCase
 {

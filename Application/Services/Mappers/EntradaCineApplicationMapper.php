@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Application\Mappers;
+namespace Application\Services\Mappers;
 
-use Application\EntradaCine\Dto\Commands\CreateEntradaCineCommand;
-use Application\EntradaCine\Dto\Commands\UpdateEntradaCineCommand;
-use Application\EntradaCine\Dto\Commands\DeleteEntradaCineCommand;
-use Application\EntradaCine\Dto\Queries\GetEntradaCineByIdQuery;
+use Application\Services\Dto\Commands\CreateEntradaCineCommand;
+use Application\Services\Dto\Commands\UpdateEntradaCineCommand;
+use Application\Services\Dto\Commands\DeleteEntradaCineCommand;
+use Application\Services\Dto\Queries\GetEntradaCineByIdQuery;
 
 use Domain\Models\EntradaCineModel;
 use Domain\ValueObjects\EntradaCineId;
@@ -48,7 +48,7 @@ final class EntradaCineApplicationMapper
 
     public static function fromUpdateCommandToModel(UpdateEntradaCineCommand $command): EntradaCineModel
     {
-        return self::fromCreateCommandToModel($command);
+        return self::fromUpdateCommandToModel($command);
     }
 
     public static function fromGetByIdQueryToId(GetEntradaCineByIdQuery $query): EntradaCineId
