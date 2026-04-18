@@ -8,9 +8,14 @@ use Domain\Exceptions\InvalidUserRoleException;
 
 final class UserRoleEnum
 {
-    public const ADMIN    = 'ADMIN';
-    public const MEMBER   = 'MEMBER';
+    public const ADMIN = 'ADMIN';
+    public const MEMBER = 'MEMBER';
     public const REVIEWER = 'REVIEWER';
+
+    public static function normalize(string $value): string
+    {
+        return strtoupper(trim($value));
+    }
 
     public static function values(): array
     {
@@ -21,15 +26,14 @@ final class UserRoleEnum
         ];
     }
 
-    public static function isValid(string $value): bool
+    public static function ensureIsValid(string $value): string
     {
-        return in_array($value, self::values(), true);
-    }
+        $value = self::normalize($value);
 
-    public static function ensureIsValid(string $value): void
-    {
-        if (!self::isValid($value)) {
+        if (!in_array($value, self::values(), true)) {
             throw InvalidUserRoleException::becauseValueIsInvalid($value);
         }
+
+        return $value;
     }
 }

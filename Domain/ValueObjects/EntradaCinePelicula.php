@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\ValueObjects;
 
 final class EntradaCinePelicula
@@ -8,7 +10,7 @@ final class EntradaCinePelicula
 
     public function __construct(string $value)
     {
-        $value = trim($value);
+        $value = ucwords(strtolower(trim($value)));
 
         if ($value === '') {
             throw new \InvalidArgumentException("Película inválida");

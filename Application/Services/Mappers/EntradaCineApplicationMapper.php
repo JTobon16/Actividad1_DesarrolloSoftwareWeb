@@ -25,7 +25,32 @@ use Domain\ValueObjects\EntradaCineCentroComercial;
 
 final class EntradaCineApplicationMapper
 {
-    public static function fromCreateCommandToModel(CreateEntradaCineCommand $command): EntradaCineModel
+
+    public static function fromCreateCommandToModel(
+        CreateEntradaCineCommand $command,
+        EntradaCineId $id
+    ): EntradaCineModel {
+        return new EntradaCineModel(
+            $id,
+            new EntradaCineFecha($command->getFechaCompra()),
+            new EntradaCineFecha($command->getFechaEntrada()),
+            new EntradaCineHora($command->getHoraInicio()),
+            new EntradaCineHora($command->getHoraFin()),
+            new EntradaCineValor((float) $command->getValor()),
+            new EntradaCinePelicula($command->getPelicula()),
+            new EntradaCinePuesto($command->getPuesto()),
+            new EntradaCineSala($command->getSala()),
+            $command->getGenero(),
+            new EntradaCineCine($command->getCine()),
+            new EntradaCinePais($command->getPais()),
+            new EntradaCineDepartamento($command->getDepartamento()),
+            new EntradaCineCiudad($command->getCiudad()),
+            new EntradaCineCentroComercial($command->getCentroComercial())
+        );
+    }
+
+
+    public static function fromUpdateCommandToModel(UpdateEntradaCineCommand $command): EntradaCineModel
     {
         return new EntradaCineModel(
             new EntradaCineId($command->getId()),
@@ -44,11 +69,6 @@ final class EntradaCineApplicationMapper
             new EntradaCineCiudad($command->getCiudad()),
             new EntradaCineCentroComercial($command->getCentroComercial())
         );
-    }
-
-    public static function fromUpdateCommandToModel(UpdateEntradaCineCommand $command): EntradaCineModel
-    {
-        return self::fromUpdateCommandToModel($command);
     }
 
     public static function fromGetByIdQueryToId(GetEntradaCineByIdQuery $query): EntradaCineId

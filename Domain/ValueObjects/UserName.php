@@ -10,7 +10,7 @@ final class UserName
 
     public function __construct(string $value)
     {
-        $value = trim($value);
+        $value = ucwords(strtolower(trim($value)));
 
         if ($value === '') {
             throw new \InvalidArgumentException("Nombre inválido");

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\ValueObjects;
 
 final class EntradaCineHora
@@ -8,7 +10,9 @@ final class EntradaCineHora
 
     public function __construct(string $value)
     {
-        if (!preg_match('/^\d{2}:\d{2}$/', $value)) {
+        $value = trim($value);
+
+        if (!preg_match('/^\d{1,2}:\d{2}$/', $value)) {
             throw new \InvalidArgumentException("Hora inválida");
         }
 
