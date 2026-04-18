@@ -2,18 +2,19 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../Dto/Commands/CreateUserCommand.php';
-require_once __DIR__ . '/../Dto/Commands/UpdateUserCommand.php';
-require_once __DIR__ . '/../Dto/Commands/DeleteUserCommand.php';
-require_once __DIR__ . '/../Dto/Queries/GetUserByIdQuery.php';
+namespace Application\Mappers;
 
-require_once __DIR__ . '/../../../Domain/Models/UserModel.php';
+use Application\User\Dto\Commands\CreateUserCommand;
+use Application\User\Dto\Commands\UpdateUserCommand;
+use Application\User\Dto\Commands\DeleteUserCommand;
+use Application\User\Dto\Queries\GetUserByIdQuery;
 
-require_once __DIR__ . '/../../../Domain/ValueObjects/UserId.php';
-require_once __DIR__ . '/../../../Domain/ValueObjects/UserName.php';
-require_once __DIR__ . '/../../../Domain/ValueObjects/UserEmail.php';
-require_once __DIR__ . '/../../../Domain/ValueObjects/UserPassword.php';
-require_once __DIR__ . '/../../../Domain/Enums/UserStatusEnum.php';
+use Domain\Models\UserModel;
+use Domain\ValueObjects\UserId;
+use Domain\ValueObjects\UserName;
+use Domain\ValueObjects\UserEmail;
+use Domain\ValueObjects\UserPassword;
+use Domain\Enums\UserStatusEnum;
 
 final class UserApplicationMapper
 {
@@ -23,7 +24,7 @@ final class UserApplicationMapper
             new UserId($command->getId()),
             new UserName($command->getName()),
             new UserEmail($command->getEmail()),
-            new UserPassword($command->getPassword()), // 🔥 CORREGIDO
+            UserPassword::fromPlainText($command->getPassword()),
             $command->getRole(),
             UserStatusEnum::PENDING
         );
@@ -35,7 +36,7 @@ final class UserApplicationMapper
             new UserId($command->getId()),
             new UserName($command->getName()),
             new UserEmail($command->getEmail()),
-            new UserPassword($command->getPassword()), // 🔥 CORREGIDO
+            UserPassword::fromPlainText($command->getPassword()),
             $command->getRole(),
             $command->getStatus()
         );
@@ -53,24 +54,11 @@ final class UserApplicationMapper
 
     public static function fromModelToArray(UserModel $user): array
     {
-        return [
-            'id'       => $user->id()->value(),
-            'name'     => $user->name()->value(),
-            'email'    => $user->email()->value(),
-            'password' => $user->password()->value(),
-            'role'     => $user->role(),
-            'status'   => $user->status(),
-        ];
+        return $user->toArray();
     }
 
     public static function fromModelsToArray(array $users): array
     {
-        $result = [];
-
-        foreach ($users as $user) {
-            $result[] = self::fromModelToArray($user);
-        }
-
-        return $result;
+        return array_map(fn($u) => self::fromModelToArray($u), $users);
     }
 }
