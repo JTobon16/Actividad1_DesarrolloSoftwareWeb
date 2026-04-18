@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\EntradaCine\Ports\In;
+namespace Application\Ports\In;
 
-use Application\EntradaCine\Dto\Commands\DeleteEntradaCineCommand;
+use Application\Services\Dto\Commands\DeleteEntradaCineCommand;
 
 interface DeleteEntradaCineUseCase
 {

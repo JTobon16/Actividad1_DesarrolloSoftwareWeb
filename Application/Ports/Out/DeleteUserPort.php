@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\User\Ports\Out;
+namespace Application\Ports\Out;
 
 use Domain\ValueObjects\UserId;
 

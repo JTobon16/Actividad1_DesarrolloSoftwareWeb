@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\User\Dto\Queries;
+namespace Application\Services\Dto\Queries;
 
 final class GetUserByIdQuery
 {

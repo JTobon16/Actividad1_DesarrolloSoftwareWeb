@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Application\EntradaCine\Services;
 
-use Application\EntradaCine\Ports\In\DeleteEntradaCineUseCase;
-use Application\EntradaCine\Ports\Out\DeleteEntradaCinePort;
-use Application\EntradaCine\Ports\Out\GetEntradaCineByIdPort;
-use Application\EntradaCine\Dto\Commands\DeleteEntradaCineCommand;
-use Application\Mappers\EntradaCineApplicationMapper;
+use Application\Ports\In\DeleteEntradaCineUseCase;
+use Application\Ports\Out\DeleteEntradaCinePort;
+use Application\Ports\Out\GetEntradaCineByIdPort;
+use Application\Services\Dto\Commands\DeleteEntradaCineCommand;
+use Application\Services\Mappers\EntradaCineApplicationMapper;
 
 use Domain\Exceptions\EntradaCineNotFoundException;
 

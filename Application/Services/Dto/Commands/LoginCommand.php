@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\User\Dto\Commands;
+namespace Application\Services\Dto\Commands;
 
 final class LoginCommand
 {

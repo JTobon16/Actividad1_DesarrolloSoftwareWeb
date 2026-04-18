@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Application\User\Ports\In;
+namespace Application\Ports\In;
 
-use Application\User\Dto\Queries\GetUserByIdQuery;
+use Application\Services\Dto\Queries\GetUserByIdQuery;
 use Domain\Models\UserModel;
 
 interface GetUserByIdUseCase

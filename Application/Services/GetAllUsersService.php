@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Application\User\Services;
 
-use Application\User\Ports\In\GetAllUsersUseCase;
-use Application\User\Ports\Out\GetAllUsersPort;
-use Application\User\Dto\Queries\GetAllUsersQuery;
+use Application\Ports\In\GetAllUsersUseCase;
+use Application\Ports\Out\GetAllUsersPort;
+use Application\Services\Dto\Queries\GetAllUsersQuery;
 
 final class GetAllUsersService implements GetAllUsersUseCase
 {
@@ -16,6 +16,6 @@ final class GetAllUsersService implements GetAllUsersUseCase
 
     public function execute(GetAllUsersQuery $query): array
     {
-        return $this->getAllUsersPort->getAll();
+        return $this->getAllUsersPort->FindAll();
     }
 }

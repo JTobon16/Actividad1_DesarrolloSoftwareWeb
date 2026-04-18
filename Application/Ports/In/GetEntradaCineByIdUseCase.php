@@ -2,19 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Application\Dto\Queries;
+namespace Application\Ports\In;
 
-final class GetEntradaCineByIdQuery
+use Application\Services\Dto\Queries\GetEntradaCineByIdQuery;
+use Domain\Models\EntradaCineModel;
+
+interface GetEntradaCineByIdUseCase
 {
-    private string $id;
-
-    public function __construct(string $id)
-    {
-        $this->id = trim($id);
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
+    public function execute(GetEntradaCineByIdQuery $query): EntradaCineModel;
 }
